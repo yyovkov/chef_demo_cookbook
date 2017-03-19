@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default
+    provisioner:
+      data_bags_path: "test/data_bags"
+    run_list:
+      - recipe[chef_demo_cookbook::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
